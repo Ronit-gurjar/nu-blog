@@ -44,8 +44,8 @@ export default function DashboardLayout({children} : {children : ReactNode}){
 
             <div className="flex flex-col">
                 <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6">
-                    <div className="ml-auto flex items-center gap-x-5">
-                    <LogoutLink><Button variant={"outline"} className="flex gap-1"><LogOutIcon className="h-[1.2rem] w-[1.2rem]"/>Logout</Button></LogoutLink>    
+                    <div className="ml-auto flex items-center gap-x-3">
+                    <LogoutLink><Button variant={"outline"}><LogOutIcon className="h-[1.2rem] w-[1.2rem]"/></Button></LogoutLink>    
                     <ThemeToggle/>
                     </div>
                 </header>

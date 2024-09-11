@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { DashboardItems } from "../components/dashboard/DashboardItems";
-import { DollarSignIcon, GlobeIcon, HomeIcon } from "lucide-react";
+import { DollarSignIcon, GlobeIcon, HomeIcon, LogOutIcon } from "lucide-react";
 import { ThemeToggle } from "../components/dashboard/theme-toggel";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { Button } from "@/components/ui/button";
 
 export const navlinks = [
     {
@@ -43,6 +45,7 @@ export default function DashboardLayout({children} : {children : ReactNode}){
             <div className="flex flex-col">
                 <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6">
                     <div className="ml-auto flex items-center gap-x-5">
+                    <LogoutLink><Button variant={"outline"} className="flex gap-1"><LogOutIcon className="h-[1.2rem] w-[1.2rem]"/>Logout</Button></LogoutLink>    
                     <ThemeToggle/>
                     </div>
                 </header>

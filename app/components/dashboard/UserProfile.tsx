@@ -2,9 +2,16 @@
 
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState, useEffect } from 'react';
 
 export default function UserProfile() {
     const { user } = useKindeBrowserClient();
+    const [imageError, setImageError] = useState(false);
+
+    useEffect(() => {
+        // Reset image error state when user changes
+        setImageError(false);
+    }, [user]);
 
     if (!user) {
         return (
@@ -19,11 +26,15 @@ export default function UserProfile() {
 
     return (
         <Avatar>
-            <AvatarImage 
-                src={userPfp} 
-                alt={`Profile picture of ${user.given_name || user.family_name || 'user'}`} 
-            />
-            <AvatarFallback>{fallbackText.toUpperCase()}</AvatarFallback>
+            {userPfp && !imageError ? (
+                <AvatarImage 
+                    src={userPfp} 
+                    alt={`Profile picture of ${user.given_name || user.family_name || 'user'}`}
+                    onError={() => setImageError(true)}
+                />
+            ) : (
+                <AvatarFallback>{fallbackText.toUpperCase()}</AvatarFallback>
+            )}
         </Avatar>
     );
 }

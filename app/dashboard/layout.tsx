@@ -5,6 +5,7 @@ import { DollarSignIcon, GlobeIcon, HomeIcon, LogOutIcon } from "lucide-react";
 import { ThemeToggle } from "../components/dashboard/theme-toggel";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
+import UserProfile from "../components/dashboard/UserProfile";
 
 export const navlinks = [
     {
@@ -47,6 +48,7 @@ export default function DashboardLayout({children} : {children : ReactNode}){
                     <div className="ml-auto flex items-center gap-x-3">
                     <LogoutLink><Button variant={"outline"}><LogOutIcon className="h-[1.2rem] w-[1.2rem]"/></Button></LogoutLink>    
                     <ThemeToggle/>
+                    <UserProfile/>
                     </div>
                 </header>
                 <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 ">

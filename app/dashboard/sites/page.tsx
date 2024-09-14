@@ -1,8 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import prisma from "@/lib/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { FileIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
-export default function SitesRoute(){
+import { redirect } from "next/navigation";
+import SiteCard from "@/app/components/sites/SiteCard";
+
+async function getData(userId: string) {
+    const data = await prisma.site.findMany({
+        where:{
+            userId: userId,
+        },
+        orderBy:{
+            createdAt: "desc",
+        }
+    });
+
+    return data;
+}
+
+export default async function SitesRoute(){
+
+    const {getUser} = getKindeServerSession()
+    const user = await getUser()
+    if(!user){
+        return redirect("/api/auth/login")
+    }
+    const data = await getData(user?.id);
     return(
         <>
         <div className="flex w-full justify-between items-center">
@@ -13,7 +38,8 @@ export default function SitesRoute(){
         </div>
         <Separator className="-mt-4"/>
         
-        <div className="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
+        {data === undefined || data.length === 0 ? (
+            <div className="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
             <div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
                 <FileIcon className="size-10 text-primary"/>
             </div>
@@ -23,6 +49,13 @@ export default function SitesRoute(){
                 <Link href={"/dashboard/sites/new"}><PlusIcon className="mr-2 size-6 items-center"/>Create</Link>
             </Button>
         </div>
+        ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+                {data.map((site) => (
+                    <SiteCard key={site.id} site={site} />
+                ))}
+            </div>
+        )}
         </>
     )
 }

@@ -10,6 +10,8 @@ import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { siteSchema } from "@/lib/zodSchema";
+import Link from "next/link";
+import { ArrowLeftIcon } from "lucide-react";
 
 export default function NewSiteRoute(){
 
@@ -28,12 +30,19 @@ export default function NewSiteRoute(){
     });
 
     return(
+        <>
+    <div className="flex gap-2 items-center">
+        <Button size="icon" variant="outline" asChild>
+            <Link href="/dashboard/sites"><ArrowLeftIcon className="size-4"/></Link>
+        </Button>
+        <h1 className="text-xl font-semibold">Create Site</h1>
+    </div>
     <div className="flex flex-col flex-1 items-center justify-center">
         <Card>
             <CardHeader>
-                <CardTitle>Create Site</CardTitle>
+                <CardTitle>New Site</CardTitle>
                 <CardDescription>
-                Create your Site here. Click the button below once your done...
+                Create your Site here. Below fields are the details of your site.
                 </CardDescription>
             </CardHeader>
             <form id={form.id} onSubmit={form.onSubmit} action={action}>
@@ -75,5 +84,6 @@ export default function NewSiteRoute(){
             </form>
         </Card>
     </div>
+    </>
     )
 }

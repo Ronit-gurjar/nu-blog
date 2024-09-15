@@ -33,7 +33,7 @@ export default function SiteCard({ site }: SiteCardProps) {
       </CardHeader>
       <CardFooter>
         <Button asChild className="w-full">
-          <Link href="#" className="flex gap-2 items-center justify-center">
+          <Link href={`/dashboard/sites/${site.id}`} className="flex gap-2 items-center justify-center">
             <BookA className="size-4"/>View Articles
           </Link>
         </Button>

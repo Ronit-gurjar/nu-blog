@@ -32,6 +32,7 @@ const TailwindEditor = ({onChange, initialValue}: EditorProps) => {
               class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
             }
         }}
+        immediatelyRender={false}
         className="border p-4 rounded-lg min-h-64"
       >
         <EditorCommand className='z-50 h-auto max-h-[330px]  w-72 overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all'>

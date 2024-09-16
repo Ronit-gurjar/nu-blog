@@ -12,9 +12,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast"
+import { JSONContent } from "novel";
+import TailwindEditor from "@/app/components/editor/EditorWrapper";
 
 export default function ArticleCreationRoute({params}: {params:{siteId: string};}){
     const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
+    const [value, setValue] = useState<undefined | JSONContent>(undefined);
     const {toast} = useToast();
     return(
         <>
@@ -77,6 +80,10 @@ export default function ArticleCreationRoute({params}: {params:{siteId: string};
                             }}
                             />
                         )}
+                    </div>
+                    <div className="grid gap-2">
+                        <Label>Article Content</Label>
+                        <TailwindEditor onChange={setValue} initialValue={value}/>
                     </div>
                 </form>
             </CardContent>

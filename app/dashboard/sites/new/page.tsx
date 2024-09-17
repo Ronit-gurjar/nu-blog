@@ -11,7 +11,8 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { siteSchema } from "@/lib/zodSchema";
 import Link from "next/link";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, BoxIcon } from "lucide-react";
+import { SubmitButton } from "@/app/components/dashboard/SubmitButton";
 
 export default function NewSiteRoute(){
 
@@ -79,7 +80,7 @@ export default function NewSiteRoute(){
                 </div>
                 </CardContent>
                 <CardFooter>
-                    <Button>Create</Button>
+                    <SubmitButton text="Create Site" icon={<BoxIcon className="size-4 mr-2"/>}/>
                 </CardFooter>
             </form>
         </Card>

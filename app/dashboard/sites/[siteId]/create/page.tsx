@@ -20,6 +20,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { PostSchema } from "@/lib/zodSchema";
 import slugify from "react-slugify"
 import { MagicWandIcon } from "@radix-ui/react-icons";
+import { SubmitButton } from "@/app/components/dashboard/SubmitButton";
 
 export default function ArticleCreationRoute({params}: {params:{siteId: string};}){
     const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
@@ -160,9 +161,7 @@ export default function ArticleCreationRoute({params}: {params:{siteId: string};
                         <TailwindEditor onChange={setValue} initialValue={value}/>
                         <p className="text-red-500 text-sm">{fields.articleContent.errors}</p>
                     </div>
-                    
-                        <Button><MagicWandIcon className="size-4 mr-2"/>Create Article</Button>
-                    
+                        <SubmitButton text="Create Article" icon={<MagicWandIcon className="size-4 mr-2"/>} />
                 </form>
             </CardContent>
         </Card>

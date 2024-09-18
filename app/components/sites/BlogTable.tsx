@@ -49,7 +49,7 @@ export default function BlogTable({ posts, siteId }: PostDataProps) {
           <CardHeader>
             <CardTitle>Articles</CardTitle>
             <CardDescription>
-              Manage your Articles in a simple and intuitive interface
+              Manage your Articles here. Click on action button to see article options.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -57,7 +57,7 @@ export default function BlogTable({ posts, siteId }: PostDataProps) {
               <TableHeader>
                 <TableRow>
                   <TableHead>Image</TableHead>
-                  <TableHead>Title</TableHead>
+                  <TableHead className="font-semibold">Title</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Created At</TableHead>
                   <TableHead className="text-right">Actions</TableHead>

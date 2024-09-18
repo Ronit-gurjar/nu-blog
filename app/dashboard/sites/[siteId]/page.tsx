@@ -4,6 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NewspaperIcon, PlusIcon, PlusSquare, Settings2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import BlogTable from "@/app/components/sites/BlogTable";
 
 async function getData(userId: string, siteId: string){
     const data = await prisma.post.findMany({
@@ -66,7 +67,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             </Button>
             </div>
         ):(
-            <h1>POSTS</h1>
+            <BlogTable posts={data} siteId={params.siteId}/>
         )}
         </>
         

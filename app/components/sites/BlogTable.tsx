@@ -16,6 +16,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
     Table,
     TableBody,
     TableCaption,
@@ -25,10 +35,13 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { MoreHorizontal } from "lucide-react";
+import { BadgeAlertIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
+import { SubmitButton } from "../dashboard/SubmitButton";
+import { Input } from "@/components/ui/input";
+import { DeletePost } from "@/app/actions";
 
 interface Post {
     id: string;
@@ -42,7 +55,7 @@ interface Post {
     siteId : string
   }
   
-export default function BlogTable({ posts, siteId }: PostDataProps) {
+export default function BlogTable({ posts, siteId }: PostDataProps, post: Post) {
     return (
         <div>
         <Card>
@@ -91,6 +104,7 @@ export default function BlogTable({ posts, siteId }: PostDataProps) {
                     </TableCell>
 
                     <TableCell className="text-end">
+                    <Dialog>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button size="icon" variant="ghost">
@@ -107,15 +121,37 @@ export default function BlogTable({ posts, siteId }: PostDataProps) {
                               Edit
                             </Link>
                           </DropdownMenuItem>
+                          <DialogTrigger asChild>
                           <DropdownMenuItem asChild>
-                            <Link
-                              href={`/dashboard/sites/${siteId}/${item.id}/delete`}
-                            >
+                          <div className="bg-red-500 rounded-lg w-full" >
                               Delete
-                            </Link>
+                            </div>
                           </DropdownMenuItem>
+                          </DialogTrigger>
                         </DropdownMenuContent>
                       </DropdownMenu>
+                      <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center"><BadgeAlertIcon className="size-6 mr-3"/> Are you absolutely sure?</DialogTitle>
+                        <DialogDescription>
+                          This action cannot be undone. Are you sure you want to permanently
+                          delete this file from our servers?
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button type="button" variant="secondary">
+                            Close
+                          </Button>
+                        </DialogClose>
+                        <form action={DeletePost}>
+                          <Input type="hidden" name="articleId" value={item.id}/>
+                          <Input type="hidden" name="siteId" value={siteId}/>
+                        <SubmitButton text="Delete" icon={<Trash2Icon/>} variant={"destructive"} />
+                        </form>
+                        </DialogFooter>
+                      </DialogContent> 
+                      </Dialog>
                     </TableCell>
                   </TableRow>
                 ))}

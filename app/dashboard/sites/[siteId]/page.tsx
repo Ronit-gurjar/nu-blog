@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NewspaperIcon, PlusIcon, PlusSquare, Settings2 } from "lucide-react";
+import { ArrowLeftIcon, NewspaperIcon, PlusIcon, PlusSquare, Settings2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import BlogTable from "@/app/components/sites/BlogTable";
@@ -39,8 +39,11 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
     return (
         <>
         <div className="flex items-center justify-evenly">
-            <div>
-                <h1 className="text-2xl">{}</h1>
+            <div className="flex gap-2 w-fit min-w-[200px] items-center">
+                <Button size="icon" variant="outline" className="mr-3" asChild>
+                    <Link href={`/dashboard/sites`}><ArrowLeftIcon className="size-4"/></Link>
+                </Button>
+                <h1 className="text-xl font-semibold"> Site Articles</h1>
             </div>
             <div className="flex w-full justify-end gap-x-4">
                 <Button asChild variant="secondary">

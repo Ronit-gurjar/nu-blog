@@ -35,7 +35,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { BadgeAlertIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
+import { BadgeAlertIcon, Edit2Icon, MoreHorizontal, Trash2Icon } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -118,13 +118,13 @@ export default function BlogTable({ posts, siteId }: PostDataProps, post: Post) 
                             <Link
                               href={`/dashboard/sites/${siteId}/${item.id}`}
                             >
-                              Edit
+                              <Edit2Icon className="mr-3 size-4"/> Edit
                             </Link>
                           </DropdownMenuItem>
                           <DialogTrigger asChild>
                           <DropdownMenuItem asChild>
-                          <div className="bg-red-500 rounded-lg w-full" >
-                              Delete
+                            <div className="bg-red-600 rounded-lg w-full" >
+                             <Trash2Icon className="mr-3 size-4"/>Delete
                             </div>
                           </DropdownMenuItem>
                           </DialogTrigger>

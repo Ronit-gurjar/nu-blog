@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import {parseWithZod} from "@conform-to/zod"
-import { PostSchema, siteSchema } from "@/lib/zodSchema";
+import { PostSchema, SiteCreationSchema, siteSchema } from "@/lib/zodSchema";
 import prisma from "@/lib/db";
 import { useRequireUser } from "@/lib/useRequireUser";
 
@@ -11,25 +11,35 @@ export async function CreateSiteAction(prevState: any, formData : FormData) {
    
     const user = await useRequireUser();
 
-    const userInput = parseWithZod(formData,{
-        schema: siteSchema,
-    })
-
-    if(userInput.status !== "success"){
-        return userInput.reply();
-    }
-
-    const respone = await prisma.site.create({
-        data:{
-            name: userInput.value.name,
-            subdirectory: userInput.value.subdirectory,
-            description: userInput.value.description,
-            userId: user.id
+        const submission = await parseWithZod(formData, {
+          schema: SiteCreationSchema({
+            async isSubdirectoryUnique() {
+              const exisitngSubDirectory = await prisma.site.findUnique({
+                where: {
+                  subdirectory: formData.get("subdirectory") as string,
+                },
+              });
+              return !exisitngSubDirectory;
+            },
+          }),
+          async: true,
+        });
+  
+      if (submission.status !== "success") {
+        return submission.reply();
+      }
+  
+      const response = await prisma.site.create({
+        data: {
+          description: submission.value.description,
+          name: submission.value.name,
+          subdirectory: submission.value.subdirectory,
+          userId: user.id,
         },
-    });
-
-    return redirect("/dashboard/sites");
-}
+      });
+      return redirect("/dashboard/sites");
+    }
+  
 export async function CreatePostAction(prevState: any, formData: FormData) {
     const user = await useRequireUser();
     

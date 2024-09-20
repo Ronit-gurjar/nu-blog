@@ -112,3 +112,16 @@ export async function CreatePostAction(prevState: any, formData: FormData) {
     
       return redirect(`/dashboard/sites/${formData.get("siteId")}`);
     }
+
+    export async function DeleteSite(formData: FormData) {
+      const user = await useRequireUser();
+    
+      const data = await prisma.site.delete({
+        where: {
+          userId: user.id,
+          id: formData.get("siteId") as string,
+        },
+      });
+    
+      return redirect("/dashboard/sites");
+    }

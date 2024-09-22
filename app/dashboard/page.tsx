@@ -8,6 +8,7 @@ import Image from "next/image";
 import Defaultimage from "@/public/defaultImage.png"
 import { EmptyState } from "../components/dashboard/EmptyState";
 import { BookAIcon, FileIcon, PlusIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 async function getData(userId : string){
 
@@ -31,7 +32,7 @@ async function getData(userId : string){
                 createdAt:"desc",
             },
             take: 3,
-        })
+        }),
 
     ]);
 
@@ -40,10 +41,15 @@ async function getData(userId : string){
 
 export default async function DashboardIndexPage(){
     const user = await useRequireUser();
-    const { articles, sites } = await getData(user.id);
+    const { articles, sites} = await getData(user.id);
+    const name = user.given_name || user.family_name;
     return (
       <div>
-        <h1 className="text-2xl font-semibold mb-5">Your Sites</h1>
+        <h1 className="text-2xl font-semibold">
+            Welcome, {name}
+        </h1>
+        <Separator className="mt-2"/>
+        <h1 className="text-lg mt-4 font-semibold mb-5">Your Sites</h1>
         {sites.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
             {sites.map((item) => (
@@ -81,7 +87,7 @@ export default async function DashboardIndexPage(){
             />
         )}
   
-        <h1 className="text-2xl mt-10 font-semibold mb-5">Recent Articles</h1>
+        <h1 className="text-lg mt-10 font-semibold mb-5">Recent Articles</h1>
         {articles.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
             {articles.map((item) => (

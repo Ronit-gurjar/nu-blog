@@ -8,21 +8,26 @@ import BlogTable from "@/app/components/sites/BlogTable";
 import { EmptyState } from "@/app/components/dashboard/EmptyState";
 
 async function getData(userId: string, siteId: string){
-    const data = await prisma.post.findMany({
-        where:{
-            userId: userId,
-            siteId: siteId,
+    const data = await prisma.site.findUnique({
+        where: {
+          id: siteId,
+          userId: userId,
         },
-        select:{
-            image: true,
-            id: true,
-            title: true,
-            createdAt: true,
+        select: {
+          subdirectory: true,
+          post: {
+            select: {
+              image: true,
+              title: true,
+              createdAt: true,
+              id: true,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
         },
-        orderBy:{
-            createdAt:"desc"
-        }
-    });
+      });
 
     return data;
 }
@@ -48,7 +53,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             </div>
             <div className="flex w-full justify-end gap-x-4">
                 <Button asChild variant="secondary">
-                    <Link href="#"><BookOpenTextIcon className="size-4 mr-2"/> View Blog</Link>
+                    <Link href={`/blog/${data?.subdirectory}`}><BookOpenTextIcon className="size-4 mr-2"/> View Blog</Link>
                 </Button>
                 <Button asChild variant="secondary">
                     <Link href={`/dashboard/sites/${params.siteId}/settings`}><Settings2 className="size-4"/></Link>
@@ -59,7 +64,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             </div>
         </div>
 
-        {data === undefined || data.length === 0 ? (
+        {data?.post === undefined || data.post.length === 0 ? (
 
             <EmptyState 
             title="You have no Article yet"
@@ -71,7 +76,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             />
 
         ):(
-            <BlogTable posts={data} siteId={params.siteId}/>
+            <BlogTable posts={data.post} siteId={params.siteId}/>
         )}
         </>
         

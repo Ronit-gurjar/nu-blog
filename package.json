@@ -35,6 +35,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "react-slugify": "^4.0.1",
+    "stripe": "^16.12.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^7.0.1",

@@ -13,6 +13,7 @@ import {
 import Defaultimage from "@/public/defaultImage.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 async function getData(subDir: string) {
   const data = await prisma.site.findUnique({
@@ -52,14 +53,24 @@ export default async function BlogIndexPage({
   const data = await getData(params.name);
   return (
     <>
-      <nav className="grid grid-cols-3 my-10">
-        <div className="col-span-1" />
-        <div className="flex items-center gap-x-4 justify-center">
+      <nav className="flex flex-row items-center justify-between gap-6 my-10 w-full">
+
+      
+      <div className="flex items-center justify-start">
+        <Button size="icon" variant="outline" className="mr-3" asChild>
+          <Link href={`/dashboard/sites`}>
+            <ArrowLeft className="size-4" />
+          </Link>
+        </Button>
+        <h1 className="text-xl font-medium">Back to Sites</h1>
+      </div>
+
+        <div className="flex items-center gap-x-4">
           <Image src={Logo} alt="Logo" width={40} height={40} />
           <h1 className="text-3xl font-semibold tracking-tight">{data.name}</h1>
         </div>
 
-        <div className="col-span-1 flex w-full justify-end">
+        <div className="flex justify-end">
           <ThemeToggle />
         </div>
       </nav>

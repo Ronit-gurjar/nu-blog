@@ -15,28 +15,30 @@ datasource db {
 }
 
 model User {
-  id           String   @id @unique
+  id           String        @id @unique
   email        String
   firstName    String
   lastName     String
   profileImage String
+  customerId   String?       @unique
   Site         Site[]
   post         Post[]
-  createdAt    DateTime @default(now())
+  createdAt    DateTime      @default(now())
+  Subscription Subscription?
 }
 
 model Site {
-  id           String   @id @default(uuid())
-  name         String
-  description  String
-  subdirectory String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  imageUrl String?
-  User     User?   @relation(fields: [userId], references: [id])
-  userId   String?
-  post     Post[]
+  id                               String        @id @default(uuid())
+  name                             String
+  description                      String
+  subdirectory                     String        @unique
+  createdAt                        DateTime      @default(now())
+  updatedAt                        DateTime      @updatedAt
+  imageUrl                         String?
+  User                             User?         @relation(fields: [userId], references: [id])
+  userId                           String?
+  post                             Post[]
+  subscriptionStripeSubscriptionId String?
 }
 
 model Post {
@@ -50,6 +52,20 @@ model Post {
   updatedAt        DateTime @default(now())
   User             User?    @relation(fields: [userId], references: [id])
   userId           String?
-  Site             Site?    @relation(fields: [siteId], references: [id])
+  Site             Site?    @relation(fields: [siteId], references: [id],  onDelete: Cascade)
   siteId           String?
+}
+
+model Subscription {
+  stripeSubscriptionId String   @id @unique
+  interval             String
+  status               String
+  planId               String
+  currentPeriodStart   Int
+  currentPeriodEnd     Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @unique
 }

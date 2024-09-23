@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, FlameIcon } from "lucide-react";
 import { SubmitButton } from "../dashboard/SubmitButton";
 import Link from "next/link";
 import { CreateSubscription } from "@/app/actions";
@@ -58,8 +58,8 @@ export function PricingTable() {
       </div>
 
       <p className="mx-auto mt-6 max-w-2xl text-center leading-tight text-muted-foreground">
-        Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi
-        iusto modi velit ut non voluptas in. Explicabo id ut laborum.
+        If you want to create a personal blog, you can use the <span className="font-semibold text-white">FREE</span> tier,<br/>
+        If you are a Professional or a Startup looking for creating well organized blogs, The <span className="font-semibold text-white">STARTUP</span> tier is just the right thing for you. 
       </p>
 
       <div className="grid grid-cols-1 gap-8 mt-16 lg:grid-cols-2">
@@ -71,7 +71,8 @@ export function PricingTable() {
                   <div className="flex items-center justify-between">
                     <h3 className="text-primary">Startup</h3>
 
-                    <p className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold leading-5 text-primary">
+                    <p className="flex items-center justify-center rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold leading-5 text-primary">
+                      <FlameIcon className="size-icon mr-2"/>
                       Most popular
                     </p>
                   </div>

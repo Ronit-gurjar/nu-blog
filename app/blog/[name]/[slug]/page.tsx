@@ -53,7 +53,7 @@ export default async function SlugRoute({
               dateStyle: "medium",
             }).format(data.createdAt)}
           </p>
-          <h1 className="mb-5 text-3xl font-bold md:text-6xl tracking-tight">
+          <h1 className="mb-5 text-3xl font-bold text-primary md:text-6xl tracking-tight">
             {data.title}
           </h1>
           <p className="m-auto w-10/12 text-muted-foreground line-clamp-3">

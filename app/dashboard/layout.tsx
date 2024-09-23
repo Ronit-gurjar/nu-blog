@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ReactNode } from "react";
+import Logo from "@/public/logo.svg";
 import { DashboardItems } from "../components/dashboard/DashboardItems";
 import { DollarSignIcon, GlobeIcon, HomeIcon, LogOutIcon } from "lucide-react";
 import { ThemeToggle } from "../components/dashboard/theme-toggel";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
 import UserProfile from "../components/dashboard/UserProfile";
+import Image from "next/image";
 
 export const navlinks = [
     {
@@ -31,6 +33,7 @@ export default function DashboardLayout({children} : {children : ReactNode}){
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link href="/" className="flex items-center gap-2 font-semibold">
+                    <Image src={Logo} alt="Logo" width={40} height={40} />
                     <h3 className="text-2xl"><span className="text-primary italic">nu</span>-Blog</h3>
                     </Link>
                     </div>

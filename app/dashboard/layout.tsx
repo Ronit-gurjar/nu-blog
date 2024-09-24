@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import UserProfile from "../components/dashboard/UserProfile";
 import Image from "next/image";
 
-export const navlinks = [
+const navlinks = [
     {
         name : 'Dashboard',
         href : '/dashboard',

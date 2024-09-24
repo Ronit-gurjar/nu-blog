@@ -22,7 +22,7 @@ async function getData(subDir: string) {
     },
     select: {
       name: true,
-      post: {
+      posts: {
         select: {
           smallDescription: true,
           title: true,
@@ -76,7 +76,7 @@ export default async function BlogIndexPage({
       </nav>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-        {data.post.map((item) => (
+        {data.posts.map((item) => (
           <Card key={item.id}>
             <Image
               src={item.image ?? Defaultimage}

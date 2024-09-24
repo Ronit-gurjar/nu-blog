@@ -32,7 +32,7 @@ export async function GET() {
 
         return NextResponse.redirect(
             process.env.NODE_ENV === "production"
-              ? "https://nu-blog.vercel.app/dashboardd"
+              ? "https://nu-blog.vercel.app/dashboard"
               : "http://localhost:3000/dashboard"
           );
 }

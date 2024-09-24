@@ -2,14 +2,30 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
 import { LogInIcon, PlusIcon } from "lucide-react";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
+import { Hero } from "./components/landing/Hero";
+import { Logos } from "./components/landing/Logos";
+import { Features } from "./components/landing/Features";
+import { PricingTable } from "./components/shared/Pricing";
+import Footer from "./components/landing/Footer";
 
-export default function Home() {
+export default async function Home() {
+  const { getUser } = getKindeServerSession();
+  const session = await getUser();
+
+  if (session?.id) {
+    return redirect("/dashboard");
+  }
+
   return (
-    <main className="flex flex-col items-center justify-between p-14">
-     <h1 className="text-9xl font-serif font-extrabold ">Hello, <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Ronit</span></h1>
-     <div className="flex gap-3 p-8">
-        <RegisterLink><Button variant={"outline"} className="flex gap-1"><PlusIcon/>Sign up</Button></RegisterLink>
-        <LoginLink><Button className="flex gap-1"><LogInIcon/>Log in</Button></LoginLink>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div className="flex flex-col gap-7 px-8">
+        <Hero/>
+        <Logos/>
+        <Features/>
+        <PricingTable/>
+        <Footer/>
      </div>
     </main>
   );

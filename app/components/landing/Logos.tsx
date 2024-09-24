@@ -1,9 +1,9 @@
 import Image from "next/image";
-import OSSLogo from "@/public/OSS Logo.png";
-import CTCLogo from "@/public/CTC Logo.jpg";
-import DextroLogo from "@/public/Dextro Logo.png";
-import JournapLogo from "@/public/journap logo.png";
-import S1CSLogo from "@/public/S1CS LOGO.jpg";
+import OSSLogo from "@/public/OSSLogo.png";
+import CTCLogo from "@/public/CTCLogo.jpg";
+import DextroLogo from "@/public/DextroLogo.png";
+import JournapLogo from "@/public/Journaplogo.png";
+import S1CSLogo from "@/public/S1CSLOGO.jpg";
 import { Button } from "@/components/ui/button";
 
 export function Logos() {

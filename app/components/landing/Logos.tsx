@@ -3,7 +3,7 @@ import OSSLogo from "@/public/OSSLogo.png";
 import CTCLogo from "@/public/CTCLogo.jpg";
 import DextroLogo from "@/public/DextroLogo.png";
 import JournapLogo from "@/public/Journaplogo.png";
-import S1CSLogo from "@/public/S1CSLOGO.jpg";
+import S1CSLogo from "@/public/S1CSLogo.jpg";
 import { Button } from "@/components/ui/button";
 
 export function Logos() {

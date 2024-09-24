@@ -9,23 +9,6 @@ import { Button } from "@/components/ui/button";
 import UserProfile from "../components/dashboard/UserProfile";
 import Image from "next/image";
 
-const navlinks = [
-    {
-        name : 'Dashboard',
-        href : '/dashboard',
-        icon : HomeIcon  
-    },
-    {
-        name : 'Sites',
-        href : '/dashboard/sites',
-        icon : GlobeIcon  
-    },
-    {
-        name : 'pricing',
-        href : '/dashboard/pricing',
-        icon : DollarSignIcon 
-    }
-]
 export default function DashboardLayout({children} : {children : ReactNode}){
     return(
         <section className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">

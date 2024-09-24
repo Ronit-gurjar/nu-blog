@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-    try {
         const { getUser } = getKindeServerSession();
         const user = await getUser();
 
@@ -31,10 +30,9 @@ export async function GET() {
             });
         }
 
-        // For API routes, it's better to return a JSON response
-        return NextResponse.json({ success: true, user: dbUser });
-    } catch (error) {
-        console.error("Error in /api/auth/creation:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-    }
+        return NextResponse.redirect(
+            process.env.NODE_ENV === "production"
+              ? "https://nu-blog.vercel.app/dashboardd"
+              : "http://localhost:3000/dashboard"
+          );
 }

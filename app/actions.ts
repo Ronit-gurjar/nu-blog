@@ -231,9 +231,15 @@ export async function CreatePostAction(prevState: any, formData: FormData) {
           address: "auto",
           name: "auto",
         },
-        success_url: "http://localhost:3000/dashboard/payment/success",
-        cancel_url: "http://localhost:3000/dashboard/payment/cancelled",
-      });
+        success_url:
+      process.env.NODE_ENV === "production"
+        ? "https://nu-blog.vercel.app/dashboard/payment/success"
+        : "http://localhost:3000/dashboard/payment/success",
+    cancel_url:
+      process.env.NODE_ENV === "production"
+        ? "https://nu-blog.vercel.app/dashboard/payment/cancelled"
+        : "http://localhost:3000/dashboard/payment/cancelled",
+  });
     
       return redirect(session.url as string);
     

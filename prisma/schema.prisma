@@ -28,17 +28,17 @@ model User {
 }
 
 model Site {
-  id                               String        @id @default(uuid())
-  name                             String
-  description                      String
-  subdirectory                     String        @unique
-  createdAt                        DateTime      @default(now())
-  updatedAt                        DateTime      @updatedAt
-  imageUrl                         String?
-  User                             User?         @relation(fields: [userId], references: [id])
-  userId                           String?
-  post                             Post[]
-  subscriptionStripeSubscriptionId String?
+  id           String   @id @default(uuid())
+  name         String
+  description  String
+  subdirectory String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  imageUrl String?
+  User     User?   @relation(fields: [userId], references: [id])
+  userId   String?
+  posts    Post[]
 }
 
 model Post {

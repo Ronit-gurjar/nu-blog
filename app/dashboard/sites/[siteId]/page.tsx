@@ -15,7 +15,7 @@ async function getData(userId: string, siteId: string){
         },
         select: {
           subdirectory: true,
-          post: {
+          posts: {
             select: {
               image: true,
               title: true,
@@ -64,7 +64,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             </div>
         </div>
 
-        {data?.post === undefined || data.post.length === 0 ? (
+        {data?.posts === undefined || data.posts.length === 0 ? (
 
             <EmptyState 
             title="You have no Article yet"
@@ -76,7 +76,7 @@ export default async function SiteIdRoute({params}:{params:{siteId: string};}){
             />
 
         ):(
-            <BlogTable posts={data.post} siteId={params.siteId}/>
+            <BlogTable posts={data.posts} siteId={params.siteId}/>
         )}
         </>
         

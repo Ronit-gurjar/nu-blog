@@ -58,8 +58,8 @@ export function PricingTable() {
       </div>
 
       <p className="mx-auto mt-6 max-w-2xl text-center leading-tight text-muted-foreground">
-        If you want to create a personal blog, you can use the <span className="font-semibold text-white">FREE</span> tier,<br/>
-        If you are a Professional or a Startup looking for creating well organized blogs, The <span className="font-semibold text-white">STARTUP</span> tier is just the right thing for you. 
+        If you want to create a personal blog, you can use the <span className="font-semibold text-primary">FREE</span> tier,<br/>
+        If you are a Professional or a Startup looking for creating well organized blogs, The <span className="font-semibold text-primary">STARTUP</span> tier is just the right thing for you. 
       </p>
 
       <div className="grid grid-cols-1 gap-8 mt-16 lg:grid-cols-2">

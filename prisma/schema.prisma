@@ -9,14 +9,13 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String        @id @unique
-  email        String
+  id           String        @id @map("_id")              // Kinde ID (string)
+  email        String        @unique
   firstName    String
   lastName     String
   profileImage String
@@ -28,21 +27,21 @@ model User {
 }
 
 model Site {
-  id           String   @id @default(uuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description  String
   subdirectory String   @unique
+  imageUrl     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  imageUrl String?
-  User     User?   @relation(fields: [userId], references: [id])
-  userId   String?
-  posts    Post[]
+  userId String  // Foreign key to Kinde ID (string)
+  user   User    @relation(fields: [userId], references: [id])
+  posts  Post[]
 }
 
 model Post {
-  id               String   @id @default(uuid())
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   title            String
   articleContent   Json
   smallDescription String
@@ -50,14 +49,15 @@ model Post {
   slug             String   @unique
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
-  User             User?    @relation(fields: [userId], references: [id])
-  userId           String?
-  Site             Site?    @relation(fields: [siteId], references: [id],  onDelete: Cascade)
-  siteId           String?
+
+  userId String  // Foreign key to Kinde ID (string)
+  siteId String? @db.ObjectId
+  user   User    @relation(fields: [userId], references: [id])
+  site   Site?   @relation(fields: [siteId], references: [id])
 }
 
 model Subscription {
-  stripeSubscriptionId String   @id @unique
+  stripeSubscriptionId String   @id @map("_id")           // Using Stripe ID as string PK
   interval             String
   status               String
   planId               String
@@ -66,6 +66,6 @@ model Subscription {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String? @unique
+  userId String  @unique // FK to User.id (string Kinde ID)
+  user   User    @relation(fields: [userId], references: [id])
 }

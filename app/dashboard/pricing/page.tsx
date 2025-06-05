@@ -18,13 +18,13 @@ async function getData(userId: string) {
       userId: userId,
     },
     select: {
-      status: true,
-      User: {
-        select: {
-          customerId: true,
-        },
-      },
-    },
+        status: true,
+        user: {
+          select: {
+            customerId: true
+          }
+        }
+      }
   });
 
   return data;
@@ -38,7 +38,7 @@ export default async function PricingPage() {
     "use server";
 
     const session = await stripe.billingPortal.sessions.create({
-      customer: data?.User?.customerId as string,
+      customer: data?.user?.customerId as string,
       return_url:
         process.env.NODE_ENV === "production"
           ? "https://nu-blog.vercel.app/dashboard"
